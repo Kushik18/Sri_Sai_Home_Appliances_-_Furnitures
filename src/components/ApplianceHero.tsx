@@ -53,7 +53,7 @@ export default function ApplianceHero({
         ))}
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
       </div>
-      <div className="container mx-auto flex flex-col md:flex-row items-center justify-between relative z-10">
+      <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-10 flex flex-col md:flex-row items-center justify-between relative z-10">
         <div className="md:w-1/2 space-y-6">
           <span className="font-semibold tracking-wider uppercase text-sm text-blue-300 drop-shadow-md">
             SRI SAI HOME APPLIANCES

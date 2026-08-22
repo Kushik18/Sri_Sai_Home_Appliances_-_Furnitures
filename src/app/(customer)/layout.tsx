@@ -59,8 +59,8 @@ function Header() {
     <>
       <header className={`fixed w-full top-0 z-50 transition-all duration-700 ${isStoryMode ? 'opacity-0 -translate-y-full pointer-events-none' : 'bg-white dark:bg-gray-950 shadow-sm opacity-100 translate-y-0'}`}>
         {/* Main Nav */}
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between gap-4">
-          <Link href="/" className="flex items-center gap-2 md:gap-3 mr-2">
+        <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-10 py-3.5 flex items-center justify-between gap-4">
+          <Link href="/" className="flex items-center gap-2 md:gap-3 mr-2 flex-shrink-0">
             <img src="/logo.png" alt="Sri Sai Logo" className="h-8 md:h-10 w-auto flex-shrink-0" />
             <span className="text-sm leading-tight md:text-xl font-bold tracking-tighter text-blue-900 dark:text-blue-100">
               Sri Sai Home Appliances and Furnitures<span className="text-blue-500">.</span>
