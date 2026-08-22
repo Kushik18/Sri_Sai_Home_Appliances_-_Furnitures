@@ -30,8 +30,7 @@ export default function LoginPage() {
       if (res?.error) {
         setError("Invalid username or password");
       } else {
-        router.push("/admin");
-        router.refresh();
+        window.location.href = "/admin";
       }
     } catch (error) {
       setError("An error occurred during login");
