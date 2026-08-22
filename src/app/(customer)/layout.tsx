@@ -511,7 +511,7 @@ export default function CustomerLayout({ children }: { children: ReactNode }) {
         {/* Splash screen — overlays everything on first session visit, then unmounts */}
         <SplashScreen />
         <Tracker />
-        <div className="min-h-screen w-full overflow-x-hidden flex flex-col bg-gray-50 dark:bg-gray-950 relative">
+        <div className="min-h-screen w-full overflow-x-clip flex flex-col bg-gray-50 dark:bg-gray-950 relative">
           <Header />
           <main className="flex-grow pt-[72px] md:pt-[80px]">
             {children}

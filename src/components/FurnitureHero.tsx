@@ -130,6 +130,13 @@ export default function FurnitureHero() {
       imagesRef.current.push(img);
     }
 
+    // Size the canvas immediately to full viewport — before any scroll event
+    if (canvasRef.current) {
+      const dpr = window.devicePixelRatio || 1;
+      canvasRef.current.width = window.innerWidth * dpr;
+      canvasRef.current.height = window.innerHeight * dpr;
+    }
+
     let animationFrameId: number;
 
     const resizeCanvas = (canvas: HTMLCanvasElement) => {
@@ -221,7 +228,23 @@ export default function FurnitureHero() {
       // 1. Draw Canvas
       if (canvasRef.current && imagesRef.current.length > 0) {
         const frameIndex = Math.min(totalFrames - 1, Math.floor(progress * totalFrames));
-        const currentImg = imagesRef.current[frameIndex];
+        let currentImg = imagesRef.current[frameIndex];
+        
+        // If current frame is not loaded yet, find the nearest loaded frame
+        if (!currentImg || !currentImg.complete || !currentImg.naturalWidth) {
+          for (let step = 1; step < totalFrames; step++) {
+            const prev = imagesRef.current[frameIndex - step];
+            if (prev && prev.complete && prev.naturalWidth) {
+              currentImg = prev;
+              break;
+            }
+            const next = imagesRef.current[frameIndex + step];
+            if (next && next.complete && next.naturalWidth) {
+              currentImg = next;
+              break;
+            }
+          }
+        }
         
         if (currentImg && currentImg.complete && currentImg.naturalWidth) {
           const canvas = canvasRef.current;
@@ -295,61 +318,10 @@ export default function FurnitureHero() {
       };
     }
 
-    // ── Scroll-lock: trap scroll inside section until animation completes ──
-    let touchStartY = 0;
-
-    const getProgress = () => {
-      if (!sectionRef.current) return -1;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const scrollDistance = rect.height - window.innerHeight;
-      const scrolled = -rect.top;
-      return clamp(scrolled / scrollDistance, 0, 1);
-    };
-
-    const isInsideSection = () => {
-      if (!sectionRef.current) return false;
-      const rect = sectionRef.current.getBoundingClientRect();
-      return rect.top <= 0 && rect.bottom > window.innerHeight;
-    };
-
-    const handleWheel = (e: WheelEvent) => {
-      if (!isInsideSection()) return;
-      const p = getProgress();
-      // Block scrolling past the section while animation is running
-      if (p < 1 && e.deltaY > 0) {
-        e.preventDefault();
-        window.scrollBy({ top: e.deltaY, behavior: 'instant' as ScrollBehavior });
-      } else if (p > 0 && e.deltaY < 0) {
-        e.preventDefault();
-        window.scrollBy({ top: e.deltaY, behavior: 'instant' as ScrollBehavior });
-      }
-    };
-
-    const handleTouchStart = (e: TouchEvent) => {
-      touchStartY = e.touches[0].clientY;
-    };
-
-    const handleTouchMove = (e: TouchEvent) => {
-      if (!isInsideSection()) return;
-      const deltaY = touchStartY - e.touches[0].clientY;
-      touchStartY = e.touches[0].clientY;
-      const p = getProgress();
-      if ((p < 1 && deltaY > 0) || (p > 0 && deltaY < 0)) {
-        e.preventDefault();
-        window.scrollBy({ top: deltaY * 2.5, behavior: 'instant' as ScrollBehavior });
-      }
-    };
-
-    window.addEventListener("wheel", handleWheel, { passive: false });
-    window.addEventListener("touchstart", handleTouchStart, { passive: true });
-    window.addEventListener("touchmove", handleTouchMove, { passive: false });
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", handleScroll, { passive: true });
 
     return () => {
-      window.removeEventListener("wheel", handleWheel);
-      window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchmove", handleTouchMove);
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleScroll);
       cancelAnimationFrame(animationFrameId);
@@ -373,7 +345,17 @@ export default function FurnitureHero() {
         
         {/* Canvas Background Layer */}
         <div className="absolute inset-0 w-full h-full z-0 overflow-hidden bg-[#241308]">
-          <canvas ref={canvasRef} className="w-full h-full block" />
+          <canvas
+            ref={canvasRef}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100vw',
+              height: '100vh',
+              display: 'block',
+            }}
+          />
           <div 
             className="absolute inset-0 pointer-events-none"
             style={{
