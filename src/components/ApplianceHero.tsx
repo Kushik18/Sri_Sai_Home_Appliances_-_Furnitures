@@ -39,7 +39,7 @@ export default function ApplianceHero({
   }
 
   return (
-    <section className={`relative text-white py-20 lg:py-32 px-4 transition-colors duration-500 overflow-hidden bg-slate-900`}>
+    <section className={`relative w-full text-white py-20 lg:py-32 transition-colors duration-500 overflow-hidden bg-slate-900`}>
       <div className="absolute inset-0 z-0 bg-black">
         {displayImages.map((src, index) => (
           <img 
