@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 50" width="100" height="50">
+  <!-- Circle icon approximation -->
+  <circle cx="25" cy="25" r="20" fill="none" stroke="currentColor" stroke-width="4"/>
+  <text x="55" y="38" font-family="'Arial Black', Arial, sans-serif" font-size="36" font-weight="900" fill="currentColor">LG</text>
+</svg>

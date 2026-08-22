@@ -1,0 +1,109 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Store {
+  id         String     @id @default(uuid())
+  name       String
+  categories Category[]
+  products   Product[]
+}
+
+model Category {
+  id       String    @id @default(uuid())
+  name     String
+  storeId  String?
+  store    Store?    @relation(fields: [storeId], references: [id])
+  products Product[]
+}
+
+model Product {
+  id                String    @id @default(uuid())
+  name              String
+  categoryId        String?
+  createdAt         DateTime  @default(now())
+  brand             String?
+  description       String?
+  imageUrls         String[]
+  inStock           Boolean   @default(true)
+  price             Float?
+  specs             Json?
+  stockQuantity     Int       @default(0)
+  storeId           String?
+  status            String    @default("PUBLISHED")
+  features          String[]
+  legacyDescription String?
+  whatsInTheBox     String[]
+  color             String?
+  dimensions        String?
+  material          String?
+  featuredAt        DateTime?
+  isFeatured        Boolean   @default(false)
+  featuredOrder     Int       @default(0)
+  bestSellerOrder   Int       @default(0)
+  isBestSeller      Boolean   @default(false)
+  enquiries         Enquiry[]
+  category          Category? @relation(fields: [categoryId], references: [id])
+  store             Store?    @relation(fields: [storeId], references: [id])
+  visits            Visit[]
+
+  @@index([name])
+  @@index([brand])
+}
+
+model Enquiry {
+  id             String   @id @default(uuid())
+  name           String
+  phone          String
+  preferWhatsapp Boolean  @default(false)
+  message        String?
+  productId      String?
+  storeType      String
+  status         String   @default("new")
+  sessionId      String?
+  createdAt      DateTime @default(now())
+  product        Product? @relation(fields: [productId], references: [id])
+}
+
+model Visit {
+  id        String   @id @default(uuid())
+  sessionId String
+  pageUrl   String
+  productId String?
+  storeType String?
+  createdAt DateTime @default(now())
+  product   Product? @relation(fields: [productId], references: [id])
+}
+
+model AdminUser {
+  id           String   @id @default(uuid())
+  username     String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+model HeroImage {
+  id        String   @id @default(uuid())
+  store     String
+  url       String
+  publicId  String?
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model BrandLogo {
+  id           String   @id @default(uuid())
+  name         String
+  store        String
+  url          String
+  publicId     String?
+  order        Int      @default(0)
+  createdAt    DateTime @default(now())
+  size         String   @default("medium")
+  invertInDark Boolean  @default(false)
+}
