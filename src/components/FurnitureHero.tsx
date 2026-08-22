@@ -295,10 +295,61 @@ export default function FurnitureHero() {
       };
     }
 
+    // ── Scroll-lock: trap scroll inside section until animation completes ──
+    let touchStartY = 0;
+
+    const getProgress = () => {
+      if (!sectionRef.current) return -1;
+      const rect = sectionRef.current.getBoundingClientRect();
+      const scrollDistance = rect.height - window.innerHeight;
+      const scrolled = -rect.top;
+      return clamp(scrolled / scrollDistance, 0, 1);
+    };
+
+    const isInsideSection = () => {
+      if (!sectionRef.current) return false;
+      const rect = sectionRef.current.getBoundingClientRect();
+      return rect.top <= 0 && rect.bottom > window.innerHeight;
+    };
+
+    const handleWheel = (e: WheelEvent) => {
+      if (!isInsideSection()) return;
+      const p = getProgress();
+      // Block scrolling past the section while animation is running
+      if (p < 1 && e.deltaY > 0) {
+        e.preventDefault();
+        window.scrollBy({ top: e.deltaY, behavior: 'instant' as ScrollBehavior });
+      } else if (p > 0 && e.deltaY < 0) {
+        e.preventDefault();
+        window.scrollBy({ top: e.deltaY, behavior: 'instant' as ScrollBehavior });
+      }
+    };
+
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartY = e.touches[0].clientY;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!isInsideSection()) return;
+      const deltaY = touchStartY - e.touches[0].clientY;
+      touchStartY = e.touches[0].clientY;
+      const p = getProgress();
+      if ((p < 1 && deltaY > 0) || (p > 0 && deltaY < 0)) {
+        e.preventDefault();
+        window.scrollBy({ top: deltaY * 2.5, behavior: 'instant' as ScrollBehavior });
+      }
+    };
+
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", handleScroll, { passive: true });
 
     return () => {
+      window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleScroll);
       cancelAnimationFrame(animationFrameId);
@@ -317,7 +368,7 @@ export default function FurnitureHero() {
   };
 
   return (
-    <section ref={sectionRef} className="relative w-full h-[500vh] bg-[#1a0f08]">
+    <section ref={sectionRef} className="relative w-full h-[700vh] bg-[#1a0f08]">
       <div className="sticky top-0 w-full h-screen overflow-hidden text-white flex flex-col justify-center">
         
         {/* Canvas Background Layer */}
