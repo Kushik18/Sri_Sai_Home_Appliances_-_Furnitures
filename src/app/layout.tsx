@@ -13,8 +13,13 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import AuthProvider from "@/components/AuthProvider";
 
 export const metadata: Metadata = {
-  title: "Sri Sai Home Appliances",
-  description: "Premium Home Appliances and Furniture",
+  title: "Sri Sai Home Appliances and Furnitures | Mysuru",
+  description: "Your one-stop destination for premium home appliances and elegant furniture in Mysuru. Best prices and official brand warranty.",
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default function RootLayout({
