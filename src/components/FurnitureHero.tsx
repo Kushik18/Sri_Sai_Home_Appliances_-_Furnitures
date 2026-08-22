@@ -134,10 +134,14 @@ export default function FurnitureHero() {
 
     const resizeCanvas = (canvas: HTMLCanvasElement) => {
       const dpr = window.devicePixelRatio || 1;
-      const rect = canvas.getBoundingClientRect();
-      if (canvas.width !== rect.width * dpr || canvas.height !== rect.height * dpr) {
-        canvas.width = rect.width * dpr;
-        canvas.height = rect.height * dpr;
+      // Use window dimensions — canvas always fills the sticky viewport
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      if (canvas.width !== w * dpr || canvas.height !== h * dpr) {
+        canvas.width = w * dpr;
+        canvas.height = h * dpr;
+        canvas.style.width = w + 'px';
+        canvas.style.height = h + 'px';
       }
     };
 
@@ -280,15 +284,19 @@ export default function FurnitureHero() {
       animationFrameId = requestAnimationFrame(onScroll);
     };
 
+    // Fire initial render after layout is complete
+    requestAnimationFrame(() => {
+      handleScroll();
+    });
+
     if (imagesRef.current[0]) {
       imagesRef.current[0].onload = () => {
-        handleScroll();
+        requestAnimationFrame(handleScroll);
       };
     }
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", handleScroll, { passive: true });
-    handleScroll();
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
