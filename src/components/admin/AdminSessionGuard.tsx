@@ -5,23 +5,20 @@ import { signOut } from "next-auth/react";
 import { useRouter, usePathname } from "next/navigation";
 
 export default function AdminSessionGuard({ children }: { children: React.ReactNode }) {
-  const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
+  const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
   const router = useRouter();
-  const pathname = usePathname();
 
   useEffect(() => {
     // Check if there is an active session in the current browser tab/window
     const active = typeof window !== "undefined" ? sessionStorage.getItem("admin_session_active") : null;
 
     if (!active) {
-      // If the tab/window was closed, force sign out and redirect to login
-      signOut({ redirect: false }).then(() => {
-        router.replace("/admin/login");
-      });
+      // Force sign out and redirect to login page immediately
+      signOut({ redirect: true, callbackUrl: "/admin/login" });
     } else {
       setIsAuthorized(true);
     }
-  }, [pathname, router]);
+  }, [router]);
 
   if (!isAuthorized) {
     return (

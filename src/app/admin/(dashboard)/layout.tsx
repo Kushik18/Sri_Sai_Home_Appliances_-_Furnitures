@@ -16,6 +16,7 @@ import {
 import { AdminThemeProvider } from "@/components/admin/AdminThemeProvider"
 import AdminHeader from "@/components/admin/AdminHeader"
 import AdminSessionGuard from "@/components/admin/AdminSessionGuard"
+import AdminSignOutButton from "@/components/admin/AdminSignOutButton"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 import { redirect } from "next/navigation"
@@ -76,10 +77,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
                 </Link>
               </nav>
               <div className="p-4 border-t border-slate-200 dark:border-slate-800">
-                <Link href="/api/auth/signout" className="flex items-center gap-3 px-3 py-2 text-sm font-semibold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-xl transition-colors">
-                  <LogOut className="h-4 w-4" />
-                  <span>Sign Out</span>
-                </Link>
+                <AdminSignOutButton />
               </div>
             </div>
           </aside>

@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu, LayoutDashboard, Layers, ShoppingBag, MessageSquare, LogOut, Star, Flame, Image as ImageIcon, Award, ExternalLink, Settings } from "lucide-react"
 import { AdminThemeToggle } from "@/components/admin/AdminThemeToggle"
+import AdminSignOutButton from "@/components/admin/AdminSignOutButton"
 
 export default function MobileAdminSidebar() {
   const [open, setOpen] = useState(false)
@@ -75,14 +76,7 @@ export default function MobileAdminSidebar() {
 
         {/* Sign Out Footer */}
         <div className="p-4 border-t border-slate-200 dark:border-slate-800 flex-shrink-0">
-          <Link 
-            href="/api/auth/signout" 
-            onClick={() => setOpen(false)}
-            className="flex items-center gap-3 px-3 py-2.5 text-sm font-semibold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-xl transition-colors"
-          >
-            <LogOut className="h-5 w-5" />
-            <span>Sign Out</span>
-          </Link>
+          <AdminSignOutButton className="flex items-center gap-3 px-3 py-2.5 text-sm font-semibold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-xl transition-colors w-full cursor-pointer" />
         </div>
       </SheetContent>
     </Sheet>

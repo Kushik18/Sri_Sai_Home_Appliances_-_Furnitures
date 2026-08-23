@@ -15,6 +15,7 @@ import {
   ExternalLink
 } from "lucide-react"
 import { AdminThemeToggle } from "./AdminThemeToggle"
+import AdminSignOutButton from "./AdminSignOutButton"
 import MobileAdminSidebar from "@/app/admin/(dashboard)/MobileAdminSidebar"
 
 export default function AdminHeader() {
@@ -88,14 +89,7 @@ export default function AdminHeader() {
           <AdminThemeToggle />
 
           {/* Sign Out Button */}
-          <Link
-            href="/api/auth/signout"
-            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 border border-transparent hover:border-red-200 dark:hover:border-red-900 transition-all"
-            title="Sign out of admin session"
-          >
-            <LogOut className="w-4 h-4" />
-            <span>Sign Out</span>
-          </Link>
+          <AdminSignOutButton className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 border border-transparent hover:border-red-200 dark:hover:border-red-900 transition-all cursor-pointer" />
 
           {/* Mobile Drawer */}
           <div className="lg:hidden">
