@@ -24,7 +24,7 @@ const furnitureImages = [
   "/images/1_34cdb43e-db41-4732-8f2c-60e7185a5e5e.webp",
   "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=500&auto=format&fit=crop",
   "/images/Wide_Walnut_Luxury_Dining_Table.webp",
-  "https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=500&auto=format&fit=crop",
+  "/images/officechair2.webp",
   "https://images.unsplash.com/photo-1558997519-83ea9252edf8?q=80&w=500&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1631679706909-1844bbd07221?q=80&w=500&auto=format&fit=crop"
 ];
