@@ -30,6 +30,7 @@ export default function LoginPage() {
       if (res?.error) {
         setError("Invalid username or password");
       } else {
+        sessionStorage.setItem("admin_session_active", "1");
         window.location.href = "/admin";
       }
     } catch (error) {

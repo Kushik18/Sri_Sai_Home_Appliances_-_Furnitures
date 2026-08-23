@@ -15,6 +15,7 @@ import {
 
 import { AdminThemeProvider } from "@/components/admin/AdminThemeProvider"
 import AdminHeader from "@/components/admin/AdminHeader"
+import AdminSessionGuard from "@/components/admin/AdminSessionGuard"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 import { redirect } from "next/navigation"
@@ -26,7 +27,8 @@ export default async function AdminLayout({ children }: { children: ReactNode })
   }
 
   return (
-    <AdminThemeProvider>
+    <AdminSessionGuard>
+      <AdminThemeProvider>
       <div className="flex flex-col min-h-screen w-full">
         {/* Top Menu Bar Header with Logo & Admin Dark Mode Toggle */}
         <AdminHeader />
@@ -89,5 +91,6 @@ export default async function AdminLayout({ children }: { children: ReactNode })
         </div>
       </div>
     </AdminThemeProvider>
+    </AdminSessionGuard>
   )
 }
