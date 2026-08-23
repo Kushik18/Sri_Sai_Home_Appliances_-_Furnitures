@@ -21,7 +21,7 @@ const placeholderImages = [
 ];
 
 const furnitureImages = [
-  "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=500&auto=format&fit=crop",
+  "/images/1_34cdb43e-db41-4732-8f2c-60e7185a5e5e.webp",
   "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=500&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1617806118233-18e1c0945594?q=80&w=500&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=500&auto=format&fit=crop",
