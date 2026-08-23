@@ -805,8 +805,7 @@ export default function HomeClient({
                 { q: "How does the brand warranty work?", a: "All products come with an official manufacturer's warranty. If you face any issues, you can either contact the brand's service center directly or call us—we'll help raise a service ticket for you." },
                 { q: "What areas do you deliver to?", a: "We offer home delivery across the entire city and surrounding suburbs. Delivery times are usually within 24-48 hours depending on stock availability." },
                 { q: "Are there any EMI options available?", a: "Yes! We offer flexible No Cost EMI options via major credit cards, Bajaj Finserv, and other local financing partners right at the store." },
-                { q: "Is installation free?", a: "Standard installation is completely free for major appliances like ACs, Washing Machines, and TVs, provided by the brand's authorized technicians." },
-                { q: "What is your return policy?", a: "We accept returns or replacements within 7 days of delivery only in the case of manufacturing defects or transit damage. Please inspect your product upon delivery." }
+                { q: "Is installation free?", a: "Standard installation is completely free for major appliances like ACs, Washing Machines, and TVs, provided by the brand's authorized technicians." }
               ].map((faq, i) => (
                 <details key={i} className="group bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-2xl open:shadow-md transition-all duration-300">
                   <summary className="flex items-center justify-between cursor-pointer p-6 font-bold text-gray-900 dark:text-white marker:content-none">

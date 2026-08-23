@@ -9,7 +9,7 @@ export interface FAQItem {
 export const faqCategories = [
   { id: "orders", label: "Orders & Tracking" },
   { id: "delivery", label: "Delivery & Installation" },
-  { id: "returns", label: "Returns & Warranty" },
+  { id: "returns", label: "Brand Warranty" },
   { id: "custom", label: "Custom Orders" },
   { id: "store", label: "Store Info & Hours" },
 ];
@@ -51,19 +51,12 @@ export const faqData: FAQItem[] = [
     answer: "Yes, basic installation is free for major appliances (like ACs, TVs, and washing machines) and furniture assembly is included. Specialized electrical or plumbing work may incur extra charges.",
   },
 
-  // Returns & Warranty
+  // Warranty
   {
     id: "returns-1",
     category: "returns",
     question: "What's your warranty policy?",
     answer: "All appliances come with standard brand warranties (usually 1-2 years). Our furniture comes with a 1-year manufacturing defect warranty.",
-    followUps: ["returns-2"],
-  },
-  {
-    id: "returns-2",
-    category: "returns",
-    question: "Do you accept returns or exchanges?",
-    answer: "We accept returns/exchanges within 7 days of delivery for unused appliances in original packaging. Furniture can be returned within 48 hours if there is a manufacturing defect.",
   },
 
   // Custom Orders
